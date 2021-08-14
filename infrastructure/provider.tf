@@ -1,6 +1,5 @@
 provider "aws" {
   region                  = var.aws_region
-  shared_credentials_file = "/home/titowoche30/.aws/terraform/credentials"
 }
 
 # Centralizar o arquivo de controle de estado do terraform
