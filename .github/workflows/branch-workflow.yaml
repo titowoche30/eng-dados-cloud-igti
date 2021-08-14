@@ -18,19 +18,11 @@ jobs:
       with:
         terraform_version: v1.0.4
 
-    - name: Print credentials
-      env:
-        SECRET_AWS_ACESS_KEY_ID: ${{ secrets.AWS_ACESS_KEY_ID }}
-        SECRET_AWS_SECRET_ACESS_KEY: ${{ secrets.AWS_SECRET_ACESS_KEY }}
-      run: |
-        echo ${SECRET_AWS_ACESS_KEY_ID}
-        echo ${AWS_SECRET_ACESS_KEY}
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACESS_KEY_ID }}
-        aws-secret-access-key: $ {{ secrets.AWS_SECRET_ACESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACESS_KEY }}
         aws-region: us-east-1
 
     - name: IaC Test
