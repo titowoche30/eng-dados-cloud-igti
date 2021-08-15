@@ -13,7 +13,6 @@ object MyUpserterObject {
           .appName("DeltaUpsertApp")
           .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
           .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
-          .master("local[*]")
           .getOrCreate()
 
         val sc = spark.sparkContext
