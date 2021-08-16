@@ -7,3 +7,15 @@ resource "aws_s3_bucket" "cwoche-bucket" {
     manager = "terraform"
   }
 }
+
+resource "aws_s3_bucket" "stream" {
+  bucket = "cwoche-streaming-bucket"
+  acl    = "private"
+
+  tags = {
+    manager   = "terraform"
+  }
+
+}
+
+
