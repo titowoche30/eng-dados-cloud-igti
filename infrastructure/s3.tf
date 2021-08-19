@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "stream" {
   acl    = "private"
 
   tags = {
-    manager   = "terraform"
+    manager = "terraform"
   }
 
 }
