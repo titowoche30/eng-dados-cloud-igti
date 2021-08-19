@@ -12,7 +12,7 @@ object ParquetConverterObject {
           .write
           .mode("overwrite")
           .partitionBy("NU_ANO")
-          .parquet(s"s3://$bucketName/staging-data/$fileName.parquet")
+          .parquet(s"s3://$bucketName/staging-data/$fileName")
     }
 
     def main(args: Array[String]): Unit = {
