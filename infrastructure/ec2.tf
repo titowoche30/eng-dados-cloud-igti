@@ -71,11 +71,11 @@ resource "aws_instance" "airflow" {
   associate_public_ip_address = true
   security_groups             = [aws_security_group.airflow_sg.id]
   subnet_id                   = var.airflow_subnet_id
-  #   user_data                   = file("../scripts/docker_airflow_install.sh")
+  #   user_data                   = file("../scripts/docker_airflow_install.sh")            # Não sei pq não funcionou
 
-  provisioner "remote-exec" {
-    script = "../scripts/docker_airflow_install.sh"
-  }
+#   provisioner "remote-exec" {                                                             # Precisa especificar chave ssh privada, algo que não posso colocar aqui no github
+#     script = "../scripts/docker_airflow_install.sh"
+#   }
 
 
   tags = {
