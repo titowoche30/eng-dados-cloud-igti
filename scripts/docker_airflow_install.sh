@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-
-
 echo "============================================="
 echo "Instalando Docker"
 apt-get update -y
