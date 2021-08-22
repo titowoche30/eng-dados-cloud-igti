@@ -13,3 +13,15 @@ variable "aws_region" {
 variable "lambda_function_name" {
   default = "EMRTrigger"
 }
+
+variable "key_pair_name" {
+  default = "terraform"
+}
+
+variable "airflow_subnet_id" {
+  default = "subnet-85c6e7a4"
+}
+
+variable "vpc_id" {
+  default = "vpc-4885f235"
+}
