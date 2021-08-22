@@ -1,10 +1,18 @@
 #!/bin/bash
 
+
+# Pra executar esse script, logue na instância EC2 e execute os comandos: 
+#   $ curl -Lf0 https://raw.githubusercontent.com/titowoche30/eng-dados-cloud-igti/main/scripts/docker_airflow_install.sh > docker_airflow_install.sh
+#   $ bash docker_airflow_install.sh
+
+# Por conta do comando newgrp docker, pouco tempo depois que você executar o script, aperte CTRL+D
+
+
 echo "============================================="
 echo "Instalando Docker"
-apt-get update -y
-apt-get remove docker docker-engine docker.io containerd runc -y
-apt-get install -y \
+sudo apt-get update -y
+sudo apt-get remove docker docker-engine docker.io containerd runc -y
+sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -14,18 +22,17 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-apt-get update -y
-apt-get install -y docker-ce docker-ce-cli containerd.io
-groupadd docker
-usermod -aG docker $USER
+sudo apt-get update -y
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
 newgrp docker
 docker run hello-world
 echo "Fim da instalação do Docker"
 
 echo "============================================="
 echo "Instalando Docker Compose"
-curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 echo "Fim da Instalação do Docker Compose"
 
 echo "============================================="
@@ -34,6 +41,6 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.1.2/docker-compose.y
 mkdir ./dags ./logs ./plugins
 echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
 docker-compose up -d airflow-init
-sleep 90
+sleep 60
 docker-compose up -d
 echo "Airflow up and running"
