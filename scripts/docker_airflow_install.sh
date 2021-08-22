@@ -2,8 +2,20 @@
 
 echo "============================================="
 echo "Instalando Docker"
-curl -fsSL https://get.docker.com -o get-docker.sh
-DRY_RUN=1 sh ./get-docker.sh
+apt-get update -y
+apt-get remove docker docker-engine docker.io containerd runc -y
+apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update -y
+apt-get install -y docker-ce docker-ce-cli containerd.io
 groupadd docker
 usermod -aG docker $USER
 newgrp docker
@@ -22,6 +34,6 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.1.2/docker-compose.y
 mkdir ./dags ./logs ./plugins
 echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
 docker-compose up -d airflow-init
-sleep 120
+sleep 90
 docker-compose up -d
 echo "Airflow up and running"
